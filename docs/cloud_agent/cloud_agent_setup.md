@@ -5,22 +5,22 @@
 ```text
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
-"registry-mirrors": [
-"https://docker.m.daocloud.io",
-"https://noohub.ru",
-"https://huecker.io",
-"https://dockerhub.timeweb.cloud",
-"https://registry.docker-cn.com",
-"https://8xpk5wnt.mirror.aliyuncs.com",
-"https://hub-mirror.c.163.com",
-"https://docker.mirrors.ustc.edu.cn",
-"https://mirrors.tuna.tsinghua.edu.cn",
-"http://mirrors.sohu.com",
-"https://ustc-edu-cn.mirror.aliyuncs.com",
-"https://ccr.ccs.tencentyun.com",
-"https://docker.awsl9527.cn",
-"https://docker.xuanyuan.me"
-]
+    "registry-mirrors": [
+        "https://docker.m.daocloud.io",
+        "https://noohub.ru",
+        "https://huecker.io",
+        "https://dockerhub.timeweb.cloud",
+        "https://registry.docker-cn.com",
+        "https://8xpk5wnt.mirror.aliyuncs.com",
+        "https://hub-mirror.c.163.com",
+        "https://docker.mirrors.ustc.edu.cn",
+        "https://mirrors.tuna.tsinghua.edu.cn",
+        "http://mirrors.sohu.com",
+        "https://ustc-edu-cn.mirror.aliyuncs.com",
+        "https://ccr.ccs.tencentyun.com",
+        "https://docker.awsl9527.cn",
+        "https://docker.xuanyuan.me"
+    ]
 }
 EOF
 ```
