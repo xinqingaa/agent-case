@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Learning Decomposer"
+  short_description: "Turn a codebase into verified learning documentation"
+  default_prompt: "Use $project-learning-decomposer to create or improve the detailed learning documentation for this project. Preserve authorization boundaries and support important claims with evidence."

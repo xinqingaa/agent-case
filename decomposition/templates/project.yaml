@@ -1,0 +1,29 @@
+project:
+  id: "{{PROJECT_ID}}"
+  name: "{{PROJECT_NAME}}"
+  source_path: "{{SOURCE_PATH}}"
+  target_audience: "零基础到具备基础编程经验的学习者"
+  status: "not-started"
+
+authorization:
+  level: "L0"
+  granted_at: ""
+  granted_by: ""
+  allowed_scope: []
+  excluded_scope: []
+  prohibited_actions:
+    - "修改原项目"
+    - "读取真实密钥"
+    - "向外部系统写入数据"
+
+analysis:
+  primary_product_journeys: []
+  planned_core_flows: []
+  applicable_topics: []
+  known_constraints: []
+
+output:
+  detailed_is_source_of_truth: true
+  quick_version_enabled: false
+  language: "zh-CN"
+

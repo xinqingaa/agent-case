@@ -1,0 +1,47 @@
+project:
+  id: "deep-research"
+  name: "DeepResearch"
+  source_path: "code/deep_research"
+  target_audience: "零基础到具备基础编程经验的学习者"
+  status: "paused-after-scope-correction"
+
+authorization:
+  level: "L3"
+  granted_at: "2026-08-18"
+  granted_by: "user"
+  allowed_scope:
+    - "项目目录轮廓"
+    - "README 和现有说明文档"
+    - "依赖清单、环境示例和构建配置"
+    - "Git 元数据的只读检查"
+    - "实现源码和测试源码的全局搜索与选择性阅读"
+  excluded_scope:
+    - "真实环境变量和密钥"
+    - "__pycache__、node_modules、output 和其他生成内容"
+  prohibited_actions:
+    - "修改原项目"
+    - "安装依赖或启动服务"
+    - "执行迁移、写库或外部 API 调用"
+    - "读取真实密钥"
+    - "向外部系统写入数据"
+
+analysis:
+  primary_product_journeys:
+    - "简单问题快速回答"
+    - "复杂问题双源检索、证据审计、补搜与报告生成"
+  planned_core_flows:
+    - "Web POST/SSE 到 LangGraph final 的端到端主链路"
+    - "执行前记忆注入与执行后持久化"
+  applicable_topics:
+    - "多智能体编排"
+    - "检索与证据处理"
+    - "记忆与状态管理"
+    - "流式交互"
+  known_constraints:
+    - "现有 docs/deep_research 文档只能作为候选材料，不能直接视为实现证据"
+    - "L3 阶段可验证源码调用关系，但不能声称运行成功"
+
+output:
+  detailed_is_source_of_truth: true
+  quick_version_enabled: false
+  language: "zh-CN"
