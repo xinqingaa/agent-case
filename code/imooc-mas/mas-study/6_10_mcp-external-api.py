@@ -6,16 +6,20 @@
 @File    : 6_10_mcp-external-api.py
 """
 import json
+import os
 
+import dotenv
 import requests
 from mcp.server.fastmcp import FastMCP
 
+dotenv.load_dotenv()
+
 mcp = FastMCP(name="三方API")
 
-# 应用配置信息
-APP_ID = "xxxx"
-LLMOPS_API = "https://llmops.shortvar.com/api/openapi/chat"
-LLMOPS_API_KEY = "xxxx"
+# 应用配置信息（本地 .env，已被 gitignore）
+APP_ID = os.getenv("LLMOPS_APP_ID", "xxxx")
+LLMOPS_API = os.getenv("LLMOPS_API", "https://llmops.shortvar.com/api/openapi/chat")
+LLMOPS_API_KEY = os.getenv("LLMOPS_API_KEY", "xxxx")
 
 
 @mcp.tool()
