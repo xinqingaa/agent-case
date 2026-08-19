@@ -1,0 +1,47 @@
+project:
+  id: "{{PROJECT_ID}}"
+  name: "{{PROJECT_NAME}}"
+  source_path: "{{SOURCE_PATH}}"
+  source_revision: ""
+  captured_at: ""
+  target_audience: "零基础到具备基础编程经验的学习者"
+  status: "draft"
+
+contract:
+  spec_version: "0.2.0"
+  template_version: "0.2.0"
+
+authorization:
+  level: "L0"
+  granted_at: ""
+  granted_by: ""
+  allowed_scope: []
+  excluded_scope: []
+  prohibited_actions:
+    - "修改原项目"
+    - "读取真实密钥"
+    - "向外部系统写入数据"
+  permissions:
+    source_read: false
+    git_history_read: false
+    command_execution: false
+    dependency_install: false
+    service_start: false
+    test_execution: false
+    browser_access: false
+    network_access: false
+    local_data_read: false
+    external_service_read: false
+    source_write: false
+
+analysis:
+  primary_product_journeys: []
+  planned_core_flows: []
+  applicable_topics: []
+  known_constraints: []
+
+output:
+  delivery_target: "static-reviewed"
+  detailed_is_source_of_truth: true
+  quick_version_enabled: false
+  language: "zh-CN"

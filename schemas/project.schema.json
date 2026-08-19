@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/codebase-learning-decomposer/project.schema.json",
+  "title": "Project decomposition workspace metadata",
+  "type": "object",
+  "required": ["project", "contract", "authorization", "analysis", "output"],
+  "properties": {
+    "project": {
+      "type": "object",
+      "required": ["id", "name", "source_path", "source_revision", "target_audience", "status"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+        "name": {"type": "string", "minLength": 1},
+        "source_path": {"type": "string", "minLength": 1},
+        "source_revision": {"type": "string"},
+        "captured_at": {"type": "string"},
+        "target_audience": {"type": "string", "minLength": 1},
+        "status": {"enum": ["draft", "static-reviewed", "runtime-verified", "accepted", "paused", "archived"]}
+      }
+    },
+    "contract": {
+      "type": "object",
+      "required": ["spec_version", "template_version"],
+      "properties": {
+        "spec_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+        "template_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"}
+      }
+    },
+    "authorization": {
+      "type": "object",
+      "required": ["level", "granted_at", "granted_by", "allowed_scope", "excluded_scope", "prohibited_actions", "permissions"],
+      "properties": {
+        "level": {"enum": ["L0", "L1", "L2", "L3", "L4", "L5"]},
+        "granted_at": {"type": "string"},
+        "granted_by": {"type": "string"},
+        "allowed_scope": {"type": "array", "items": {"type": "string"}},
+        "excluded_scope": {"type": "array", "items": {"type": "string"}},
+        "prohibited_actions": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "permissions": {
+          "type": "object",
+          "required": [
+            "source_read", "git_history_read", "command_execution", "dependency_install",
+            "service_start", "test_execution", "browser_access", "network_access",
+            "local_data_read", "external_service_read", "source_write"
+          ],
+          "properties": {
+            "source_read": {"type": "boolean"},
+            "git_history_read": {"type": "boolean"},
+            "command_execution": {"type": "boolean"},
+            "dependency_install": {"type": "boolean"},
+            "service_start": {"type": "boolean"},
+            "test_execution": {"type": "boolean"},
+            "browser_access": {"type": "boolean"},
+            "network_access": {"type": "boolean"},
+            "local_data_read": {"type": "boolean"},
+            "external_service_read": {"type": "boolean"},
+            "source_write": {"type": "boolean"}
+          }
+        }
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "required": ["primary_product_journeys", "planned_core_flows", "applicable_topics", "known_constraints"],
+      "properties": {
+        "primary_product_journeys": {"type": "array", "items": {"type": "string"}},
+        "planned_core_flows": {"type": "array", "items": {"type": "string"}},
+        "applicable_topics": {"type": "array", "items": {"type": "string"}},
+        "known_constraints": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "output": {
+      "type": "object",
+      "required": ["delivery_target", "detailed_is_source_of_truth", "quick_version_enabled", "language"],
+      "properties": {
+        "delivery_target": {"enum": ["static-reviewed", "runtime-verified"]},
+        "detailed_is_source_of_truth": {"const": true},
+        "quick_version_enabled": {"type": "boolean"},
+        "language": {"type": "string", "minLength": 2}
+      }
+    }
+  }
+}
