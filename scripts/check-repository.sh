@@ -4,6 +4,8 @@ set -eu
 script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 repo_root=$(CDPATH= cd -- "$script_dir/.." && pwd)
 cd "$repo_root"
+export LANG="${LANG:-en_US.UTF-8}"
+export LC_ALL="${LC_ALL:-en_US.UTF-8}"
 
 failed=0
 
@@ -23,6 +25,8 @@ docs/specifications/evidence-model.md
 docs/specifications/document-contract.md
 docs/specifications/acceptance.md
 .agents/skills/project-learning-decomposer/SKILL.md
+.cursor/skills/project-learning-decomposer/SKILL.md
+.claude/skills/project-learning-decomposer/SKILL.md
 templates/project-decomposition/project.yaml
 schemas/project.schema.json
 scripts/init-project.sh
@@ -54,6 +58,16 @@ ruby -c scripts/validate-project-yaml.rb >/dev/null
 ruby -c scripts/check-links.rb >/dev/null
 ruby -c scripts/validate-skill.rb >/dev/null
 ruby scripts/validate-skill.rb .agents/skills/project-learning-decomposer || failed=1
+
+for discovery in .cursor/skills/project-learning-decomposer .claude/skills/project-learning-decomposer; do
+  if [ ! -L "$discovery" ]; then
+    echo "Skill discovery path must be a symlink: $discovery" >&2
+    failed=1
+  elif [ ! -f "$discovery/SKILL.md" ]; then
+    echo "Skill discovery symlink is broken: $discovery" >&2
+    failed=1
+  fi
+done
 
 markdown_files=$(find docs .agents/skills templates workspaces scripts schemas tests archive -type f -name '*.md' -print)
 ruby scripts/check-links.rb README.md CONTRIBUTING.md sources/README.md $markdown_files || failed=1

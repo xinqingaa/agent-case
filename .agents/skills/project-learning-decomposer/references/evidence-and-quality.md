@@ -1,6 +1,6 @@
 # Evidence and quality rules
 
-Use this reference while capturing evidence, reviewing claims, or running final acceptance.
+Use this reference while capturing evidence, reviewing claims, or running final acceptance. Keep IDs and claim markers in `EVIDENCE.md`. Learning documents should locate facts with paths, modules, or commands so the reader does not have to learn this vocabulary.
 
 ## Evidence strength
 

@@ -3,6 +3,9 @@
 
 require "yaml"
 
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 if ARGV.length != 1
   warn "Usage: #{$PROGRAM_NAME} <skill-directory>"
   exit 2

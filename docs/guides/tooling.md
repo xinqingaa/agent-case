@@ -1,7 +1,7 @@
 # 工具路线
 
 版本：0.2.0
-状态：试行
+状态：0.2 已冻结
 
 ## 当前结论
 
@@ -9,7 +9,7 @@ V1 使用“规范 + 模板 + 仓库 Skill + Schema + 小型脚本 + fixtures”
 
 ## Skill
 
-`.agents/skills/project-learning-decomposer/` 负责识别完整项目学习拆解任务、读取授权卡、选择阶段、加载相关规范、调用脚本并在权限边界停止。它不保存具体项目事实，也不代替人工验收。
+正文在 `.agents/skills/project-learning-decomposer/`。`.cursor/skills/` 和 `.claude/skills/` 下的同名目录是软链，供不同 Agent 发现同一份指令。Skill 负责识别完整项目学习拆解任务、读取授权卡、选择阶段、用白话向用户确认许可、调用脚本并在权限边界停止。它不保存具体项目事实，也不代替人工验收，更不要求用户学习阶段码。
 
 ## 脚本
 

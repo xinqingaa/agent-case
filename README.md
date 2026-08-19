@@ -4,9 +4,9 @@
 
 ## 核心原则
 
-1. 先理解用户、产品场景和端到端链路，再解释架构与代码。
+1. 先理解用户、产品场景和端到端协作，再解释架构；源码是核实材料，不是读者课文。
 2. 重要结论必须能追溯到源码、配置、测试、运行结果或用户确认。
-3. 静态验证、运行验证、用户确认、推断和未知必须明确区分。
+3. Agent 必须区分已跑过、已核对源码、用户确认、推断和未知；学习文档用白话写这些把握，不把标记系统教给读者。
 4. `sources/` 是只读输入；拆解产物只写入 `workspaces/`。
 5. 未授权时不读取源码、不安装依赖、不启动服务、不访问数据或外部系统。
 6. 详细版是事实源；简洁版只能从已验收的详细版派生。
@@ -16,7 +16,9 @@
 | 路径 | 作用 | 状态 |
 |---|---|---|
 | [`docs/`](docs/README.md) | 当前有效的项目规范、架构、指南和路线图 | 事实源 |
-| [`.agents/skills/`](.agents/skills/project-learning-decomposer/SKILL.md) | Codex 可发现的项目拆解 Skill | 执行层 |
+| [`.agents/skills/`](.agents/skills/project-learning-decomposer/SKILL.md) | 项目拆解 Skill 正文 | 执行层 |
+| [`.cursor/skills/`](.cursor/skills/project-learning-decomposer) | Cursor 发现路径，软链到正文 | 发现层 |
+| [`.claude/skills/`](.claude/skills/project-learning-decomposer) | Claude Code 发现路径，软链到正文 | 发现层 |
 | [`templates/`](templates/project-decomposition/project.yaml) | 新拆解工作区的文档模板 | 模板层 |
 | [`schemas/`](schemas/project.schema.json) | 项目元数据的机器可读约束 | 约束层 |
 | [`scripts/`](scripts/) | 初始化、工作区校验和仓库检查 | 工具层 |
@@ -27,7 +29,7 @@
 
 ## 当前阶段
 
-当前目标是完成仓库级文档系统和空项目演练，不继续既有项目的源码拆解。历史上的 `deep-research` 试点已冻结到 `archive/pilots/`，不能作为新体系已经验收的证明。
+当前目标是 0.2 已冻结，空项目 G0 已完成。真实项目拆解必须逐项目授权。历史上的 `deep-research` 试点已冻结到 `archive/pilots/`，不能作为新体系已经验收的证明。
 
 ## 快速开始
 

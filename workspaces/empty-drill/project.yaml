@@ -1,0 +1,55 @@
+project:
+  id: "empty-drill"
+  name: "Empty Drill"
+  source_path: "/not-inspected/empty-drill"
+  source_revision: "none"
+  captured_at: "2026-08-19"
+  target_audience: "有工程背景、但不是该仓库作者的人。前端深厚，不需要实现教程；后端与 AI 为概念级；关注协作、业务思路和调试。"
+  status: "draft"
+
+contract:
+  spec_version: "0.2.0"
+  template_version: "0.2.0"
+
+authorization:
+  level: "L0"
+  granted_at: "2026-08-19"
+  granted_by: "user"
+  allowed_scope:
+    - "只建设空工作区"
+    - "不读取任何源码"
+  excluded_scope:
+    - "sources/"
+    - "任何真实项目文件"
+  prohibited_actions:
+    - "读取源码"
+    - "安装依赖"
+    - "启动服务"
+    - "联网"
+    - "修改原项目"
+    - "读取真实密钥"
+  permissions:
+    source_read: false
+    git_history_read: false
+    command_execution: false
+    dependency_install: false
+    service_start: false
+    test_execution: false
+    browser_access: false
+    network_access: false
+    local_data_read: false
+    external_service_read: false
+    source_write: false
+
+analysis:
+  primary_product_journeys: []
+  planned_core_flows: []
+  applicable_topics: []
+  known_constraints:
+    - "本工作区用于 0.2 空项目演练，不对应真实源码"
+
+output:
+  delivery_target: "static-reviewed"
+  detailed_is_source_of_truth: true
+  quick_version_enabled: false
+  language: "zh-CN"

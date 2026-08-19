@@ -78,7 +78,7 @@ render "$template_root/05-architecture.md" "$stage_root/detailed/05-architecture
 render "$template_root/06-codebase-map.md" "$stage_root/detailed/06-codebase-map.md"
 render "$template_root/07-domain-and-data.md" "$stage_root/detailed/07-domain-and-data.md"
 render "$template_root/08-core-flow.md" "$stage_root/detailed/08-core-flow-main.md"
-render "$template_root/09-key-code-deep-dives.md" "$stage_root/detailed/09-key-code-deep-dives.md"
+render "$template_root/09-capabilities-and-thinking.md" "$stage_root/detailed/09-capabilities-and-thinking.md"
 render "$template_root/10-interfaces-and-integrations.md" "$stage_root/detailed/10-interfaces-and-integrations.md"
 render "$template_root/11-testing-and-debugging.md" "$stage_root/detailed/11-testing-and-debugging.md"
 render "$template_root/12-quality-risks-and-tradeoffs.md" "$stage_root/detailed/12-quality-risks-and-tradeoffs.md"

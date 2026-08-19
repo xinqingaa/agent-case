@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 if ARGV.empty?
   warn "Usage: #{$PROGRAM_NAME} <markdown-file>..."
   exit 2
@@ -11,7 +14,7 @@ errors = []
 ARGV.each do |file|
   next unless File.file?(file)
 
-  File.readlines(file, chomp: true).each_with_index do |line, index|
+  File.readlines(file, chomp: true, encoding: "UTF-8").each_with_index do |line, index|
     line.scan(/!?(?:\[[^\]]*\])\(([^)]+)\)/).flatten.each do |raw_target|
       target = raw_target.strip
       target = target[1..-2] if target.start_with?("<") && target.end_with?(">")

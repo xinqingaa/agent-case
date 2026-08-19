@@ -1,6 +1,8 @@
 # 文档中心
 
-这里保存 Codebase Learning Decomposer 当前有效的项目文档。历史项目拆解已移入 `archive/`，不得与当前规范混用。
+这里保存 Codebase Learning Decomposer 当前有效的项目文档。历史项目拆解已移入 `archive/`，不得与当前规范混用。0.2 语义已冻结；以后不够用再改。
+
+若你只是使用拆解结果，读 [愿景与范围](vision-and-scope.md) 和 [详细文档契约](specifications/document-contract.md) 即可。工作流、授权和证据模型是 Agent 规范，不是读者必修。
 
 ## 建议阅读顺序
 

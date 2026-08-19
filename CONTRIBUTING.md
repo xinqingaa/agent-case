@@ -7,7 +7,7 @@
 - 改拆解规则：`docs/specifications/`
 - 改使用说明：`docs/guides/`
 - 改模板：`templates/project-decomposition/`
-- 改 Agent 工作流：`.agents/skills/project-learning-decomposer/`
+- 改 Agent 工作流：`.agents/skills/project-learning-decomposer/`（其他 Agent 发现目录必须是指向此处的软链）
 - 改机械检查：`scripts/` 和 `tests/`
 
 ## 变更要求

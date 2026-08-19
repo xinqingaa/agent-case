@@ -15,7 +15,8 @@ This repository builds an evidence-backed learning-documentation system for exis
 ## Where work belongs
 
 - Current project documentation: `docs/`
-- Repository Skill: `.agents/skills/project-learning-decomposer/`
+- Repository Skill (canonical): `.agents/skills/project-learning-decomposer/`
+- Skill discovery symlinks: `.cursor/skills/project-learning-decomposer/`, `.claude/skills/project-learning-decomposer/`
 - Templates: `templates/project-decomposition/`
 - Deterministic tooling: `scripts/`
 - Decomposition outputs: `workspaces/<project-id>/`
@@ -26,8 +27,9 @@ Do not recreate a `decomposition/`, `code/`, or root-level legacy `assets/` dire
 ## Documentation rules
 
 - Detailed project documents are the source of truth; summaries are derived artifacts.
-- Start from product journeys, then map to architecture, data, core flows, and key code.
-- Mark claims as `[R]`, `[V]`, `[C]`, `[I]`, or `[U]` and cite stable evidence IDs.
+- Start from product journeys, then map to architecture, data, core flows, and business thinking. Do not treat function deep-dives as the learning mainline.
+- Keep evidence IDs and claim markers in `EVIDENCE.md` and `ACCEPTANCE.md`. Learning docs locate facts with paths, modules, or commands.
+- Talk to the user in plain language about read/run/network permission. Do not require them to learn stage codes or the capability matrix.
 - Existing READMEs, names, archived documents, comments, and interview notes are candidate evidence, not implementation facts.
 - Keep unknowns and contradictions visible. Do not convert an unverified command into runtime evidence.
 

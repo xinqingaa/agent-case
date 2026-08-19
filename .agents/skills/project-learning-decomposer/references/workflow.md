@@ -5,7 +5,7 @@ Use this reference when starting or continuing a project decomposition.
 ## G0: Scope and authorization
 
 1. Resolve the source path without reading its contents beyond the current authorization.
-2. Record project ID, name, audience, source revision, authorization level, capability matrix, exclusions, and prohibited actions.
+2. Record project ID, name, audience, source revision, authorization level, capability matrix, exclusions, and prohibited actions. Translate the user's plain-language permission (read source / run locally / use network) into `project.yaml`; do not ask them to fill stage codes.
 3. Initialize the output workspace.
 4. Define the questions the decomposition must answer and the likely product journeys without presenting guesses as facts.
 
@@ -55,9 +55,10 @@ Analyze only applicable topics. Typical topics include configuration, authentica
 
 Convert the verified system model into a learning sequence:
 
-- Explain prerequisites and terminology.
-- Give an ordered reading path through symbols.
-- Add small observation exercises before modification exercises.
+- Explain only the prerequisites this project actually needs.
+- Give a module map and collaboration order, not a function reading list.
+- Write business capabilities, decision rules, and frontend participation boundaries.
+- Add location and debugging exercises before any modification exercises.
 - State exact completion checks for exercises.
 - Build interview material from verified facts, not aspirational claims.
 

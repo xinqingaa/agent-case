@@ -1,13 +1,13 @@
 # 仓库架构
 
 版本：0.2.0
-状态：试行
+状态：0.2 已冻结
 
 ## 架构概览
 
 ```mermaid
 flowchart LR
-    Docs[docs 规范与指南] --> Skill[.agents/skills 执行流程]
+    Docs[docs 规范与指南] --> Skill[Skill 正文与发现软链]
     Docs --> Templates[templates 文档契约]
     Docs --> Schema[schemas 机器约束]
     Skill --> Scripts[scripts 确定性工具]
@@ -33,8 +33,8 @@ flowchart LR
 
 - 拆解方法：`docs/specifications/`
 - 项目范围和权限：`workspaces/<project-id>/project.yaml`
-- 项目证据：`workspaces/<project-id>/EVIDENCE.md`
-- 项目学习事实：`workspaces/<project-id>/detailed/`
-- 阶段和阻断项：`workspaces/<project-id>/ACCEPTANCE.md`
+- 项目学习事实：`workspaces/<project-id>/detailed/`（读者主面）
+- 项目证据：`workspaces/<project-id>/EVIDENCE.md`（Agent 后台）
+- 阶段和阻断项：`workspaces/<project-id>/ACCEPTANCE.md`（Agent 后台）
 
 Skill、脚本和模板负责落实规范，但不能改变规范语义。若实现与规范冲突，应先停止并修正规范或实现，而不是静默选择一方。

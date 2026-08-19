@@ -4,6 +4,9 @@
 require "json"
 require "yaml"
 
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 if ARGV.length != 2
   warn "Usage: #{$PROGRAM_NAME} <schema.json> <project.yaml>"
   exit 2

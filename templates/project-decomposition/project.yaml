@@ -4,7 +4,7 @@ project:
   source_path: "{{SOURCE_PATH}}"
   source_revision: ""
   captured_at: ""
-  target_audience: "零基础到具备基础编程经验的学习者"
+  target_audience: "有工程背景、但不是该仓库作者的人。前端深厚，不需要实现教程；后端与 AI 为概念级；关注协作、业务思路和调试。"
   status: "draft"
 
 contract:

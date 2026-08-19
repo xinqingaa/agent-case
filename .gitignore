@@ -1,10 +1,10 @@
-# OS / editor
-.DS_Store
-Thumbs.db
-.idea/
-.vscode/
-*.swp
-*.swo
+# Cursor / Claude local artifacts; keep project skill discovery symlinks
+.cursor/*
+!.cursor/skills/
+!.cursor/skills/project-learning-decomposer
+.claude/*
+!.claude/skills/
+!.claude/skills/project-learning-decomposer
 
 # Local environment
 .env

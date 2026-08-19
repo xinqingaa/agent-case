@@ -46,7 +46,7 @@ detailed/04-stack-and-dependencies.md
 detailed/05-architecture.md
 detailed/06-codebase-map.md
 detailed/07-domain-and-data.md
-detailed/09-key-code-deep-dives.md
+detailed/09-capabilities-and-thinking.md
 detailed/10-interfaces-and-integrations.md
 detailed/11-testing-and-debugging.md
 detailed/12-quality-risks-and-tradeoffs.md

@@ -2,21 +2,21 @@
 
 ## 文档信息
 
-- 状态：`草稿 / 已验证 / 已验收`
+- 状态：`草稿 / 已核对 / 已验收`
 - 适用项目版本：`{{REVISION}}`
 - 目标读者：`{{TARGET_AUDIENCE}}`
 - 建议总学习时间：`{{ESTIMATED_TIME}}`
-- 当前授权等级：`{{AUTH_LEVEL}}`
+- 当前许可：`{{AUTH_SUMMARY}}`
 
-## 学完后应该能够
+## 看完后应该能够
 
 1. {{LEARNING_OUTCOME}}
 2. {{LEARNING_OUTCOME}}
 3. {{LEARNING_OUTCOME}}
 
-## 前置知识
+## 需要先具备什么
 
-| 知识 | 要求程度 | 补充材料或说明 |
+| 知识 | 要求程度 | 说明 |
 |---|---|---|
 | {{TOPIC}} | 了解 / 熟悉 | {{NOTE}} |
 
@@ -26,8 +26,8 @@
 flowchart LR
     Product[产品与用户] --> Architecture[架构与边界]
     Architecture --> Flows[核心链路]
-    Flows --> Code[关键代码]
-    Code --> Practice[练习与表达]
+    Flows --> Thinking[业务能力与思路]
+    Thinking --> Practice[练习与表达]
 ```
 
 ## 推荐阅读顺序
@@ -36,9 +36,9 @@ flowchart LR
 |---|---|---|---|---|
 | 1 | `01-project-and-product.md` | {{GOAL}} | {{TIME}} | {{CHECK}} |
 
-## 两条学习路径
+## 两条路径
 
-### 路径 A：从零理解
+### 路径 A：按协作把项目看懂
 
 {{BEGINNER_PATH}}
 
@@ -46,13 +46,12 @@ flowchart LR
 
 {{TASK_PATH}}
 
-## 当前验证状态
+## 当前把握
 
-| 范围 | 状态 | 证据 | 未解决问题 |
-|---|---|---|---|
-| 启动运行 | `[R/V/I/U]` | `E-...` | {{UNKNOWN}} |
+| 范围 | 把握 | 还没解决的问题 |
+|---|---|---|
+| 启动运行 | `尚未核对 / 已按源码核对 / 已实际跑过 / 仍有未知` | {{UNKNOWN}} |
 
 ## 下一步
 
 {{NEXT_STEP}}
-

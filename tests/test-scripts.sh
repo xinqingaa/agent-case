@@ -4,6 +4,8 @@ set -eu
 script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 repo_root=$(CDPATH= cd -- "$script_dir/.." && pwd)
 temp_root=$(mktemp -d)
+export LANG="${LANG:-en_US.UTF-8}"
+export LC_ALL="${LC_ALL:-en_US.UTF-8}"
 
 cleanup() {
   rm -rf -- "$temp_root"
@@ -39,20 +41,25 @@ expect_failure "$repo_root/scripts/validate-project.sh" "$temp_root/missing-flow
 
 cp -R "$workspace" "$temp_root/completed"
 ruby -e '
+  Encoding.default_external = Encoding::UTF_8
+  Encoding.default_internal = Encoding::UTF_8
   root = ARGV.fetch(0)
+  filled = "\u5df2\u586b\u5199"
+  incomplete = "| \u672a\u5f00\u59cb |"
+  complete = "| \u5df2\u5b8c\u6210 |"
   Dir.glob(File.join(root, "**", "*"), File::FNM_DOTMATCH).each do |path|
     next unless File.file?(path)
     next unless [".md", ".yaml"].include?(File.extname(path))
-    content = File.read(path).gsub(/\{\{[A-Z0-9_]+\}\}/, "已填写")
+    content = File.read(path).gsub(/\{\{[A-Z0-9_]+\}\}/, filled)
     content = content.gsub("status: \"draft\"", "status: \"accepted\"")
-    content = content.gsub("| 未开始 |", "| 已完成 |")
+    content = content.gsub(incomplete, complete)
     File.write(path, content)
   end
 ' "$temp_root/completed"
 "$repo_root/scripts/validate-project.sh" "$temp_root/completed" --full
 
 cp -R "$temp_root/completed" "$temp_root/missing-evidence"
-printf '\n无定义证据引用：[V][E-ARCH-999]\n' >> "$temp_root/missing-evidence/detailed/05-architecture.md"
+printf '\nBroken evidence reference: [V][E-ARCH-999]\n' >> "$temp_root/missing-evidence/detailed/05-architecture.md"
 expect_failure "$repo_root/scripts/validate-project.sh" "$temp_root/missing-evidence" --full
 
 cp -R "$temp_root/completed" "$temp_root/missing-run"
