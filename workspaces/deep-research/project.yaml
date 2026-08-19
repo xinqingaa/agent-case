@@ -1,0 +1,67 @@
+project:
+  id: "deep-research"
+  name: "Deep Research"
+  source_path: "sources/deep_research"
+  source_revision: ""
+  captured_at: "2026-08-19"
+  target_audience: "有工程背景、但不是该仓库作者的人。前端深厚，不需要实现教程；后端与 AI 为概念级；关注协作、业务思路和调试。"
+  status: "draft"
+
+contract:
+  spec_version: "0.2.0"
+  template_version: "0.2.0"
+
+authorization:
+  level: "L3"
+  granted_at: "2026-08-19"
+  granted_by: "user"
+  allowed_scope:
+    - "读取 sources/deep_research 中的 README、清单、配置示例、实现和测试"
+    - "访问公开网页与 GitHub 等公开资料"
+  excluded_scope:
+    - ".env 与真实密钥"
+    - "本地数据库、用户数据、生成目录、依赖目录、缓存"
+    - "项目 Git 历史（未单独允许）"
+  prohibited_actions:
+    - "安装依赖或启动服务"
+    - "执行测试、构建或打开本地页面"
+    - "调用项目自己的外部模型或搜索接口"
+    - "修改原项目"
+    - "读取真实密钥"
+  permissions:
+    source_read: true
+    git_history_read: false
+    command_execution: false
+    dependency_install: false
+    service_start: false
+    test_execution: false
+    browser_access: false
+    network_access: true
+    local_data_read: false
+    external_service_read: false
+    source_write: false
+
+analysis:
+  primary_product_journeys:
+    - "在网页聊天里提问，流式看到快速回答或研究报告"
+    - "通过 HTTP API 或命令行走同一套研究图"
+  planned_core_flows:
+    - "页面 POST /api/v1/research/stream 到 LangGraph 写出 final"
+  applicable_topics:
+    - "意图分流"
+    - "双源检索与证据裁判"
+    - "记忆注入与持久化"
+    - "SSE 流式协作"
+    - "AI-native 调试"
+  known_constraints:
+    - "用户未运行过本项目；环境是否完整未知；以源码为主要线索"
+    - "不可安装、启动、跑测试或打开本地页面"
+    - "联网仅用于公开资料和 GitHub，不调用项目运行时外部服务"
+    - "未单独允许查看 Git 历史"
+    - "archive/pilots/deep-research 只是历史线索，不能当作当前实现事实"
+
+output:
+  delivery_target: "static-reviewed"
+  detailed_is_source_of_truth: true
+  quick_version_enabled: false
+  language: "zh-CN"
