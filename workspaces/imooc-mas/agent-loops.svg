@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <title>MoocManus 的计划循环与工具循环</title>
+  <desc>计划循环决定下一步工作，工具循环执行一个步骤；工具观察返回模型，步骤结果返回计划更新。图省略传输与存储。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L8 4 L0 8 Z" fill="#1557B0"/></marker></defs>
+  <rect width="1600" height="900" fill="#F7F9FC"/>
+  <g font-family="PingFang SC, sans-serif" fill="#102A56">
+    <text x="80" y="88" font-size="38" font-weight="600">计划循环：决定接下来做什么</text>
+    <g fill="#FFFFFF" stroke="#AFC3E3" stroke-width="2">
+      <rect x="80" y="160" width="320" height="152" rx="8"/>
+      <rect x="600" y="160" width="360" height="152" rx="8"/>
+      <rect x="1160" y="160" width="360" height="152" rx="8"/>
+    </g>
+    <text x="112" y="218" font-size="34" font-weight="600">生成计划</text>
+    <text x="112" y="266" font-size="26">把任务拆成可执行步骤</text>
+    <text x="632" y="218" font-size="34" font-weight="600">执行一个步骤</text>
+    <text x="632" y="266" font-size="26">完成后整理结果与上下文</text>
+    <text x="1192" y="218" font-size="34" font-weight="600">更新剩余计划</text>
+    <text x="1192" y="266" font-size="26">保留已结束步骤</text>
+    <text x="1000" y="362" font-size="26">还有步骤</text>
+    <text x="1256" y="435" font-size="26">没有步骤</text>
+    <text x="1300" y="490" font-size="30" font-weight="600">汇总结果</text>
+    <g fill="none" stroke="#1557B0" stroke-width="3" marker-end="url(#arrow)">
+      <path d="M400 236 H600"/>
+      <path d="M960 236 H1160"/>
+      <path d="M1340 312 V384 H780 V312"/>
+      <path d="M1480 312 V456"/>
+    </g>
+    <text x="80" y="508" font-size="38" font-weight="600">工具循环：怎样完成当前步骤</text>
+    <g fill="#FFFFFF" stroke="#AFC3E3" stroke-width="2">
+      <rect x="80" y="576" width="360" height="152" rx="8"/>
+      <rect x="620" y="576" width="360" height="152" rx="8"/>
+      <rect x="1160" y="576" width="360" height="152" rx="8"/>
+    </g>
+    <text x="112" y="634" font-size="34" font-weight="600">模型作出决定</text>
+    <text x="112" y="682" font-size="26">选择工具或形成步骤结果</text>
+    <text x="652" y="634" font-size="34" font-weight="600">调用工具</text>
+    <text x="652" y="682" font-size="26">程序解析参数并执行</text>
+    <text x="1192" y="634" font-size="34" font-weight="600">观察结果</text>
+    <text x="1192" y="682" font-size="26">成功或失败写回对话</text>
+    <text x="704" y="806" font-size="26">下一次模型决策使用工具观察</text>
+    <g fill="none" stroke="#1557B0" stroke-width="3" marker-end="url(#arrow)">
+      <path d="M440 652 H620"/>
+      <path d="M980 652 H1160"/>
+      <path d="M1340 728 V840 H260 V728"/>
+    </g>
+  </g>
+</svg>

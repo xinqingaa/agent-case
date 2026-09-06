@@ -30,8 +30,10 @@ sequenceDiagram
    F->>L: Planner.update_plan
  end
  F->>L: summarize
- F->>DB: 保存事件、状态和结果
- F-->>API: DoneEvent/SSE
+ F-->>R: 领域事件（包含 DoneEvent）
+ R->>DB: 写输出流并保存会话事件
+ DB-->>S: 读取输出流
+ S-->>API: EventMapper 转 SSE
  API-->>U: 流式事件
 ```
 
@@ -52,7 +54,7 @@ sequenceDiagram
 
 ## 失败、重试和降级
 
-会话不存在会抛出错误；工具失败通过 `ToolResult`/错误事件回传；LLM JSON 解析由 `JSONParser` 适配；沙箱、搜索、COS、Redis 或 PostgreSQL 故障会影响对应能力。源码显示有日志和异常捕获，但具体重试次数与跨服务恢复策略需要运行验证。
+会话不存在由 AgentService 捕获后产生 ErrorEvent。BaseAgent 对模型调用异常和工具抛出的异常按 AgentConfig.max_retries 重试（默认 3 次），工具耗尽后返回 success=false 的 ToolResult；工具直接返回失败结果不会自动再次执行。跨服务恢复没有经完整部署验证。领域层实验确认了迭代边界及步骤失败状态覆盖的问题，见 [源码学习](source-study-guide.md)。
 
 ## 验证方法
 

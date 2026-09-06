@@ -3,9 +3,9 @@ project:
   name: "MoocManus / IMooc MAS"
   source_path: "sources/imooc-mas"
   source_revision: ""
-  captured_at: ""
+  captured_at: "2026-09-06"
   target_audience: "有工程背景、但不是该仓库作者的人。前端深厚，不需要实现教程；后端与 AI 为概念级；关注协作、业务思路和调试。"
-  status: "static-reviewed"
+  status: "draft"
 
 contract:
   spec_version: "0.3.0"
@@ -22,8 +22,14 @@ authorization:
   level: "L4"
   granted_at: "2026-09-06"
   granted_by: "user"
-  allowed_scope: []
-  excluded_scope: []
+  allowed_scope:
+    - "用户已确认读取三个项目源码、本地安装依赖/启动/测试、访问公开网络资料"
+    - "本项目读取 sources/imooc-mas 的实现、清单和测试；主要学习对象为 mooc-manus"
+    - "在源码目录外建立隔离实验环境，使用合成数据与假模型验证"
+  excluded_scope:
+    - "真实 .env、含密钥的运行配置、数据库、个人数据、缓存与依赖目录"
+    - "cursor-chat-history 对话记录与项目 Git 历史"
+    - "未授权的付费模型调用、云端写入、生产系统操作与源码修改"
   prohibited_actions:
     - "修改原项目"
     - "读取真实密钥"
@@ -42,10 +48,14 @@ authorization:
     source_write: false
 
 analysis:
-  primary_product_journeys: []
-  planned_core_flows: []
-  applicable_topics: []
-  known_constraints: []
+  primary_product_journeys:
+    - "创建会话并提交任务，查看计划、工具事件、最终回复"
+    - "人工补充信息后继续任务，停止任务与重新连接事件流"
+  planned_core_flows:
+    - "chat -> AgentService -> TaskRunner -> PlannerReActFlow -> BaseAgent -> Tool"
+  applicable_topics: ["计划与工具双层循环", "上下文", "MCP/A2A", "沙箱", "事件与持久化"]
+  known_constraints:
+    - "尚未完成事实审阅或运行验收，不应标记 static-reviewed"
 
 output:
   delivery_target: "static-reviewed"
