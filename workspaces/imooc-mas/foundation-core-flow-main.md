@@ -1,79 +1,63 @@
-# 核心链路：{{FLOW_NAME}}
+# 核心链路：会话发送任务并流式执行
 
-## 阅读说明
+## 阅读目标
+把一次聊天请求从 API 入口追到 Planner、ReAct、工具、持久化和 SSE 结束事件。
 
-- 产品价值：{{PRODUCT_VALUE}}
-- 前置知识：{{PREREQUISITES}}
-- 预计时间：{{TIME}}
-- 当前把握：`尚未核对 / 已按源码核对 / 已实际跑过 / 仍有未知`
-
-## 一句话说明
-
-{{ONE_SENTENCE}}
-
-## 触发与最终结果
-
-| 项目 | 内容 |
-|---|---|
-| 参与者 | {{ACTOR}} |
-| 触发方式 | {{TRIGGER}} |
-| 输入 | {{INPUT}} |
-| 输出 | {{OUTPUT}} |
-
-## 端到端顺序图
+## 触发与结果
+用户调用 `POST /api/sessions/{session_id}/chat`，请求包含 message、附件、event_id 和 timestamp。最终返回一串 SSE 事件：计划、消息、工具状态、等待/错误以及 `DoneEvent`；会话和事件同时写入仓库。
 
 ```mermaid
 sequenceDiagram
-    actor User as {{ACTOR}}
-    participant Entry as {{ENTRY}}
-    participant Service as {{SERVICE}}
-    participant Store as {{STORE}}
-    User->>Entry: {{REQUEST}}
-    Entry->>Service: {{CALL}}
-    Service->>Store: {{DATA_OPERATION}}
-    Store-->>Service: {{DATA_RESULT}}
-    Service-->>Entry: {{SERVICE_RESULT}}
-    Entry-->>User: {{RESPONSE}}
+ actor U as 用户
+ participant API as session_routes.chat
+ participant S as AgentService
+ participant R as AgentTaskRunner
+ participant F as PlannerReActFlow
+ participant L as Planner/ReAct
+ participant T as Tool
+ participant DB as UoW/Redis/Postgres
+ U->>API: POST /sessions/{id}/chat
+ API->>S: chat(message, attachments)
+ S->>R: 创建/投递任务
+ R->>F: invoke(message)
+ F->>L: create_plan
+ L-->>F: PlanEvent + Title/Message
+ loop 每个计划步骤
+   F->>L: ReAct.execute_step
+   L->>T: 选择并调用工具
+   T-->>L: ToolResult
+   L-->>F: ToolEvent/MessageEvent
+   F->>L: Planner.update_plan
+ end
+ F->>L: summarize
+ F->>DB: 保存事件、状态和结果
+ F-->>API: DoneEvent/SSE
+ API-->>U: 流式事件
 ```
 
-## 节点追踪
+## 关键节点
 
-| 序号 | 阶段 | 定位 | 输入 | 决策或处理 | 输出与副作用 |
-|---|---|---|---|---|---|
-| 1 | {{STAGE}} | `{{PATH}}` | {{INPUT}} | {{LOGIC}} | {{OUTPUT}} |
+| 顺序 | 定位 | 作用 |
+|---|---|---|
+| 1 | `interfaces/endpoints/session_routes.py: chat` | 接收请求并把领域事件映射成 SSE |
+| 2 | `application/services/agent_service.py` | 调度会话任务与事件流 |
+| 3 | `domain/services/agent_task_runner.py` | 连接任务队列、Flow、事件持久化和附件同步 |
+| 4 | `domain/services/flows/planner_react.py: invoke` | 管理 IDLE/PLANNING/EXECUTING/UPDATING/SUMMARIZING 状态 |
+| 5 | `domain/services/agents/planner.py` / `react.py` | 生成计划、执行步骤、更新计划、总结 |
+| 6 | `domain/services/tools/*.py` | 把模型选择转为文件、Shell、浏览器、搜索、MCP 或 A2A 操作 |
 
-## 状态变化与不变量
+## 状态变化
 
-| 状态 | 变化前 | 触发条件 | 变化后 | 不变量 |
-|---|---|---|---|---|
-| {{STATE}} | {{BEFORE}} | {{CONDITION}} | {{AFTER}} | {{INVARIANT}} |
+`SessionStatus.PENDING` 进入 `RUNNING`；Flow 在规划、执行、更新、总结和完成之间循环；计划步骤从待执行变为运行/完成。每次领域事件先写入任务输出流，再由 UoW 写入会话事件。
 
 ## 失败、重试和降级
 
-| 故障点 | 触发条件 | 传播方式 | 用户结果 | 重试或降级 | 覆盖测试 |
-|---|---|---|---|---|---|
-| {{FAILURE_POINT}} | {{CONDITION}} | {{PROPAGATION}} | {{USER_RESULT}} | {{RECOVERY}} | {{TEST}} |
+会话不存在会抛出错误；工具失败通过 `ToolResult`/错误事件回传；LLM JSON 解析由 `JSONParser` 适配；沙箱、搜索、COS、Redis 或 PostgreSQL 故障会影响对应能力。源码显示有日志和异常捕获，但具体重试次数与跨服务恢复策略需要运行验证。
 
-## 关键节点顺序
+## 验证方法
 
-跟上这条链路时按这个顺序看模块，不是精读函数。
+静态验证：核对上述路径、事件模型和 Flow 状态。运行验证需先启动 PostgreSQL、Redis、API、UI 和 sandbox，并使用测试会话发送一条无外部写入任务；不得把 README 的 `docker compose up` 当作成功证据。
 
-1. `{{PATH}}`：{{WHY_FIRST}}
-2. `{{PATH}}`：{{WHY_NEXT}}
+## 完成判定
 
-## 如何验证这条链路
-
-```shell
-{{VERIFICATION_COMMAND}}
-```
-
-预期结果：{{EXPECTED_RESULT}}
-
-## 尚未回答的问题
-
-{{UNKNOWNS}}
-
-## 完成判定与下一步
-
-- 完成判定：{{COMPLETION_CHECK}}
-- 下一篇：{{NEXT_DOCUMENT}}
+能说明请求、计划、步骤执行、工具结果、计划更新、总结、持久化和 SSE 结束事件的顺序，并能指出至少一个外部依赖失败如何传播。
