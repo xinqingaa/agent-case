@@ -10,4 +10,6 @@
 | [文档契约](document-contract.md) | 平铺工作区、事实底座和条件式学习交付 |
 | [验收规范](acceptance.md) | 何时可以声明完成 |
 
+项目级学习目标示例见 [项目学习目标档案](../project-learning-profiles.md)。
+
 所有规范采用语义化版本。项目工作区必须记录自己使用的 `spec_version` 和 `template_version`。
