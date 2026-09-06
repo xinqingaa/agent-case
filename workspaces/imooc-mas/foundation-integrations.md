@@ -1,43 +1,14 @@
-# MoocManus / IMooc MAS 接口与外部集成
+# MoocManus 外部接口与集成
 
-## 阅读说明
+| 边界 | 适配接口 | 实现 | 失败影响 |
+|---|---|---|---|
+| LLM | `domain/external/llm.py` | `infrastructure/external/llm/openai_llm.py` | 无法规划、执行或总结 |
+| 数据库 | repositories/UoW | SQLAlchemy + asyncpg/PostgreSQL | 会话和事件无法持久化 |
+| 消息队列 | `external/message_queue.py` | Redis stream | 流式任务协作和事件读取受影响 |
+| 文件存储 | `external/file_storage.py` | COS | 上传、下载和截图 URL 受影响 |
+| 沙箱 | `external/sandbox.py` | Docker sandbox | Shell、浏览器文件同步不可用 |
+| 浏览器 | `external/browser.py` | Playwright | 浏览器工具不可用 |
+| MCP/A2A | `MCPTool` / `A2ATool` | 配置驱动远程工具/Agent | 对应工具调用失败 |
+| 网关 | Nginx | `nginx/conf.d/default.conf` | UI/API 路由不可达 |
 
-- 前置知识：架构和核心链路
-- 阅读目标：理解入站、出站、数据和密钥边界
-- 预计时间：`{{TIME}}`
-- 当前把握：`尚未核对 / 已按源码核对 / 已实际跑过 / 仍有未知`
-
-## 集成地图
-
-| 系统或接口 | 方向 | 协议 | 用途 | 认证 | 失败影响 |
-|---|---|---|---|---|---|
-| {{INTEGRATION}} | 入站 / 出站 | {{PROTOCOL}} | {{PURPOSE}} | {{AUTH}} | {{FAILURE_IMPACT}} |
-
-## 入站接口
-
-| 入口 | 输入 | 校验与授权 | 输出 | 错误 | 定位 |
-|---|---|---|---|---|---|
-| `{{INTERFACE}}` | {{INPUT}} | {{VALIDATION}} | {{OUTPUT}} | {{ERRORS}} | `{{PATH}}` |
-
-## 出站调用
-
-| 目标 | 调用位置 | 超时 | 重试 | 降级 | 幂等性 |
-|---|---|---|---|---|---|
-| {{TARGET}} | `{{PATH}}` | {{TIMEOUT}} | {{RETRY}} | {{FALLBACK}} | {{IDEMPOTENCY}} |
-
-## 数据库、缓存和消息系统
-
-{{INFRASTRUCTURE_INTEGRATIONS}}
-
-## 配置与密钥边界
-
-{{CONFIG_AND_SECRETS}}
-
-## 本地替代和测试替身
-
-{{LOCAL_SUBSTITUTES}}
-
-## 完成判定与下一步
-
-- 完成判定：{{COMPLETION_CHECK}}
-- 下一篇：{{NEXT_DOCUMENT}}
+外部接口通过领域抽象隔离，Flow 和 Agent 不直接依赖具体数据库或 HTTP 客户端。配置来自 `.env`、`config.yaml` 与应用设置；真实密钥不得写入学习文档。运行时需分别验证健康检查、连接性、鉴权和错误传播。

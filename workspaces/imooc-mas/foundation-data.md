@@ -1,57 +1,12 @@
-# MoocManus / IMooc MAS 核心概念、数据与状态
+# MoocManus 数据、状态与事件
 
-## 阅读说明
+## 阅读目标
+理解会话、计划、步骤、消息、工具结果和领域事件怎样协作。
 
-- 前置知识：架构和模块地图
-- 阅读目标：理解核心概念、数据边界和状态变化
-- 预计时间：`{{TIME}}`
-- 当前把握：`尚未核对 / 已按源码核对 / 已实际跑过 / 仍有未知`
+会话由 `Session` 及其事件列表承载；用户消息、助手消息、计划、步骤、工具调用和完成标记都以领域事件表达。`event.py` 用 Pydantic 的判别联合按 `type` 区分 `PlanEvent`、`TitleEvent`、`StepEvent`、`MessageEvent`、`ToolEvent`、`WaitEvent`、`ErrorEvent` 和 `DoneEvent`。
 
-## 核心术语和领域对象
+Planner 产生结构化 `Plan`，其中包含多个 `Step`。Flow 依次取未完成步骤交给 ReAct；ReAct 用 `StepEvent` 表示开始/完成/失败，用 `ToolEvent` 表示调用中/已调用，用 `MessageEvent` 传递结果。Planner 更新计划后继续下一轮，所有步骤完成后 ReAct 汇总为最终消息。
 
-| 概念 | 在本项目中的含义 | 主要落点 | 生命周期 |
-|---|---|---|---|
-| {{CONCEPT}} | {{PROJECT_MEANING}} | `{{LOCATION}}` | {{LIFECYCLE}} |
+事件先进入任务输出流，再由 `AgentTaskRunner._put_and_add_event` 写入会话仓库。Redis stream 负责任务消息协作，PostgreSQL repository 保存会话、文件和事件相关关系数据；文件对象另由 COS 保存。附件会在执行前同步到 sandbox，执行后产生的文件可回传存储。
 
-## 数据关系
-
-```mermaid
-erDiagram
-    ENTITY_A ||--o{ ENTITY_B : relates
-```
-
-## 数据来源与去向
-
-| 数据 | 来源 | 处理位置 | 存储或输出 | 保留周期 |
-|---|---|---|---|---|
-| {{DATA}} | {{SOURCE}} | `{{LOCATION}}` | {{DESTINATION}} | {{RETENTION}} |
-
-## 状态机或生命周期
-
-```mermaid
-stateDiagram-v2
-    [*] --> Created
-    Created --> Completed
-    Created --> Failed
-```
-
-| 状态 | 进入条件 | 退出条件 | 允许操作 | 不变量 |
-|---|---|---|---|---|
-| {{STATE}} | {{ENTER}} | {{EXIT}} | {{OPERATIONS}} | {{INVARIANT}} |
-
-## 一致性与事务边界
-
-{{CONSISTENCY_AND_TRANSACTIONS}}
-
-## 敏感数据和隔离边界
-
-{{SENSITIVE_DATA}}
-
-## 未知项
-
-{{UNKNOWNS}}
-
-## 完成判定与下一步
-
-- 完成判定：{{COMPLETION_CHECK}}
-- 下一篇：{{NEXT_DOCUMENT}}
+关键不变量：事件 `type` 必须能映射到唯一 Pydantic 子类型；计划完成前不能发出最终完成事件；工具异常应转为错误或失败步骤；`DoneEvent` 表示本次流结束，不等同于所有外部副作用都成功。
