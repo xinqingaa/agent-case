@@ -27,8 +27,7 @@ schema_path="$repo_root/schemas/project.schema.json"
 
 missing=0
 
-if rg -q '^learning_profile:' "$project_root/project.yaml"; then
-  required_files='project.yaml
+required_files='project.yaml
 EVIDENCE.md
 GLOSSARY.md
 ACCEPTANCE.md
@@ -37,28 +36,8 @@ foundation-journeys.md
 foundation-architecture.md
 foundation-core-flow-main.md
 source-study-guide.md'
-  core_flow_dir="$project_root"; core_flow_pattern='foundation-core-flow-*.md'
-else
-  required_files='project.yaml
-EVIDENCE.md
-GLOSSARY.md
-ACCEPTANCE.md
-detailed/00-learning-guide.md
-detailed/01-project-and-product.md
-detailed/02-product-journeys.md
-detailed/03-environment-and-runbook.md
-detailed/04-stack-and-dependencies.md
-detailed/05-architecture.md
-detailed/06-codebase-map.md
-detailed/07-domain-and-data.md
-detailed/09-capabilities-and-thinking.md
-detailed/10-interfaces-and-integrations.md
-detailed/11-testing-and-debugging.md
-detailed/12-quality-risks-and-tradeoffs.md
-detailed/13-learning-exercises.md
-detailed/14-interview-guide.md'
-  core_flow_dir="$project_root/detailed"; core_flow_pattern='08-core-flow-*.md'
-fi
+core_flow_dir="$project_root"
+core_flow_pattern='foundation-core-flow-*.md'
 
 printf '%s\n' "$required_files" | while IFS= read -r relative_path; do
   [ -n "$relative_path" ] || continue
@@ -70,7 +49,7 @@ done
 
 core_flow_count=$(find "$core_flow_dir" -maxdepth 1 -type f -name "$core_flow_pattern" 2>/dev/null | wc -l | tr -d ' ')
 if [ "$core_flow_count" -lt 1 ]; then
-  echo "Missing required core-flow document: detailed/08-core-flow-<name>.md" >&2
+  echo "Missing required core-flow document: foundation-core-flow-<name>.md" >&2
   missing=1
 fi
 
@@ -95,12 +74,12 @@ if rg -n '\bTODO\b|\bTBD\b' "$project_root"; then
   failed=1
 fi
 
-if rg -n '^\| G[0-6] .+\| 未开始 \|' "$project_root/ACCEPTANCE.md"; then
+if rg -n '^\| P[0-6] .+\| 未开始 \|' "$project_root/ACCEPTANCE.md"; then
   echo "Acceptance stages remain incomplete" >&2
   failed=1
 fi
 
-if ! rg -q '^\| G6 .+\| (已完成|通过|有条件通过) \|' "$project_root/ACCEPTANCE.md"; then
+if ! rg -q '^\| P6 .+\| (已完成|通过|有条件通过) \|' "$project_root/ACCEPTANCE.md"; then
   echo "G6 must be marked 已完成, 通过, or 有条件通过" >&2
   failed=1
 fi
