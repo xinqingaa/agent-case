@@ -1,0 +1,54 @@
+project:
+  id: "imooc-mas"
+  name: "MoocManus / IMooc MAS"
+  source_path: "sources/imooc-mas"
+  source_revision: ""
+  captured_at: ""
+  target_audience: "有工程背景、但不是该仓库作者的人。前端深厚，不需要实现教程；后端与 AI 为概念级；关注协作、业务思路和调试。"
+  status: "static-reviewed"
+
+contract:
+  spec_version: "0.3.0"
+  template_version: "0.3.0"
+
+learning_profile:
+  source_study: "required"
+  runtime_onboarding: "required"
+  minimal_replication: "required"
+  extension_development: "required"
+  cross_project_comparison: "deferred"
+
+authorization:
+  level: "L4"
+  granted_at: "2026-09-06"
+  granted_by: "user"
+  allowed_scope: []
+  excluded_scope: []
+  prohibited_actions:
+    - "修改原项目"
+    - "读取真实密钥"
+    - "向外部系统写入数据"
+  permissions:
+    source_read: true
+    git_history_read: false
+    command_execution: true
+    dependency_install: true
+    service_start: true
+    test_execution: true
+    browser_access: true
+    network_access: true
+    local_data_read: false
+    external_service_read: false
+    source_write: false
+
+analysis:
+  primary_product_journeys: []
+  planned_core_flows: []
+  applicable_topics: []
+  known_constraints: []
+
+output:
+  delivery_target: "static-reviewed"
+  detailed_is_source_of_truth: true
+  quick_version_enabled: false
+  language: "zh-CN"
