@@ -45,7 +45,7 @@ cleanup() {
 }
 trap cleanup EXIT HUP INT TERM
 
-mkdir -p "$stage_root/detailed" "$stage_root/working"
+mkdir -p "$stage_root"
 
 escape_sed() {
   printf '%s' "$1" | sed 's/[\\&|]/\\&/g'
@@ -69,21 +69,21 @@ render "$template_root/project.yaml" "$stage_root/project.yaml"
 render "$template_root/EVIDENCE.md" "$stage_root/EVIDENCE.md"
 render "$template_root/GLOSSARY.md" "$stage_root/GLOSSARY.md"
 render "$template_root/ACCEPTANCE.md" "$stage_root/ACCEPTANCE.md"
-render "$template_root/00-learning-guide.md" "$stage_root/detailed/00-learning-guide.md"
-render "$template_root/01-project-and-product.md" "$stage_root/detailed/01-project-and-product.md"
-render "$template_root/02-product-journeys.md" "$stage_root/detailed/02-product-journeys.md"
-render "$template_root/03-environment-and-runbook.md" "$stage_root/detailed/03-environment-and-runbook.md"
-render "$template_root/04-stack-and-dependencies.md" "$stage_root/detailed/04-stack-and-dependencies.md"
-render "$template_root/05-architecture.md" "$stage_root/detailed/05-architecture.md"
-render "$template_root/06-codebase-map.md" "$stage_root/detailed/06-codebase-map.md"
-render "$template_root/07-domain-and-data.md" "$stage_root/detailed/07-domain-and-data.md"
-render "$template_root/08-core-flow.md" "$stage_root/detailed/08-core-flow-main.md"
-render "$template_root/09-capabilities-and-thinking.md" "$stage_root/detailed/09-capabilities-and-thinking.md"
-render "$template_root/10-interfaces-and-integrations.md" "$stage_root/detailed/10-interfaces-and-integrations.md"
-render "$template_root/11-testing-and-debugging.md" "$stage_root/detailed/11-testing-and-debugging.md"
-render "$template_root/12-quality-risks-and-tradeoffs.md" "$stage_root/detailed/12-quality-risks-and-tradeoffs.md"
-render "$template_root/13-learning-exercises.md" "$stage_root/detailed/13-learning-exercises.md"
-render "$template_root/14-interview-guide.md" "$stage_root/detailed/14-interview-guide.md"
+render "$template_root/00-learning-guide.md" "$stage_root/source-study-guide.md"
+render "$template_root/01-project-and-product.md" "$stage_root/foundation-project.md"
+render "$template_root/02-product-journeys.md" "$stage_root/foundation-journeys.md"
+render "$template_root/03-environment-and-runbook.md" "$stage_root/foundation-runbook.md"
+render "$template_root/04-stack-and-dependencies.md" "$stage_root/foundation-stack.md"
+render "$template_root/05-architecture.md" "$stage_root/foundation-architecture.md"
+render "$template_root/06-codebase-map.md" "$stage_root/foundation-codebase-map.md"
+render "$template_root/07-domain-and-data.md" "$stage_root/foundation-data.md"
+render "$template_root/08-core-flow.md" "$stage_root/foundation-core-flow-main.md"
+render "$template_root/09-capabilities-and-thinking.md" "$stage_root/foundation-capabilities.md"
+render "$template_root/10-interfaces-and-integrations.md" "$stage_root/foundation-integrations.md"
+render "$template_root/11-testing-and-debugging.md" "$stage_root/foundation-testing.md"
+render "$template_root/12-quality-risks-and-tradeoffs.md" "$stage_root/foundation-quality.md"
+render "$template_root/13-learning-exercises.md" "$stage_root/source-study-exercises.md"
+render "$template_root/14-interview-guide.md" "$stage_root/foundation-interview.md"
 
 mv "$stage_root" "$project_root"
 trap - EXIT HUP INT TERM

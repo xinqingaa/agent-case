@@ -36,7 +36,7 @@ expect_failure "$repo_root/scripts/init-project.sh" Invalid_ID "Invalid" /not-in
 expect_failure "$repo_root/scripts/validate-project.sh" "$workspace" --full
 
 cp -R "$workspace" "$temp_root/missing-flow"
-rm "$temp_root/missing-flow/detailed/08-core-flow-main.md"
+rm "$temp_root/missing-flow/foundation-core-flow-main.md"
 expect_failure "$repo_root/scripts/validate-project.sh" "$temp_root/missing-flow" --structure-only
 
 cp -R "$workspace" "$temp_root/completed"
@@ -59,7 +59,7 @@ ruby -e '
 "$repo_root/scripts/validate-project.sh" "$temp_root/completed" --full
 
 cp -R "$temp_root/completed" "$temp_root/missing-evidence"
-printf '\nBroken evidence reference: [V][E-ARCH-999]\n' >> "$temp_root/missing-evidence/detailed/05-architecture.md"
+printf '\nBroken evidence reference: [V][E-ARCH-999]\n' >> "$temp_root/missing-evidence/foundation-architecture.md"
 expect_failure "$repo_root/scripts/validate-project.sh" "$temp_root/missing-evidence" --full
 
 cp -R "$temp_root/completed" "$temp_root/missing-run"

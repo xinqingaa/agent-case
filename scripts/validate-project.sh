@@ -27,14 +27,19 @@ schema_path="$repo_root/schemas/project.schema.json"
 
 missing=0
 
-while IFS= read -r relative_path; do
-  [ -n "$relative_path" ] || continue
-  if [ ! -f "$project_root/$relative_path" ]; then
-    echo "Missing required file: $relative_path" >&2
-    missing=1
-  fi
-done <<'EOF'
-project.yaml
+if rg -q '^learning_profile:' "$project_root/project.yaml"; then
+  required_files='project.yaml
+EVIDENCE.md
+GLOSSARY.md
+ACCEPTANCE.md
+foundation-project.md
+foundation-journeys.md
+foundation-architecture.md
+foundation-core-flow-main.md
+source-study-guide.md'
+  core_flow_dir="$project_root"; core_flow_pattern='foundation-core-flow-*.md'
+else
+  required_files='project.yaml
 EVIDENCE.md
 GLOSSARY.md
 ACCEPTANCE.md
@@ -51,10 +56,19 @@ detailed/10-interfaces-and-integrations.md
 detailed/11-testing-and-debugging.md
 detailed/12-quality-risks-and-tradeoffs.md
 detailed/13-learning-exercises.md
-detailed/14-interview-guide.md
-EOF
+detailed/14-interview-guide.md'
+  core_flow_dir="$project_root/detailed"; core_flow_pattern='08-core-flow-*.md'
+fi
 
-core_flow_count=$(find "$project_root/detailed" -maxdepth 1 -type f -name '08-core-flow-*.md' 2>/dev/null | wc -l | tr -d ' ')
+printf '%s\n' "$required_files" | while IFS= read -r relative_path; do
+  [ -n "$relative_path" ] || continue
+  if [ ! -f "$project_root/$relative_path" ]; then
+    echo "Missing required file: $relative_path" >&2
+    missing=1
+  fi
+done
+
+core_flow_count=$(find "$core_flow_dir" -maxdepth 1 -type f -name "$core_flow_pattern" 2>/dev/null | wc -l | tr -d ' ')
 if [ "$core_flow_count" -lt 1 ]; then
   echo "Missing required core-flow document: detailed/08-core-flow-<name>.md" >&2
   missing=1
@@ -107,7 +121,7 @@ rg --no-filename '^\| E-[A-Z]+-[0-9]+' "$project_root/EVIDENCE.md" \
   | rg -o 'E-[A-Z]+-[0-9]+' | sort -u > "$temp_dir/defined"
 
 rg --no-filename -o 'E-[A-Z]+-[0-9]+' \
-  "$project_root/detailed" "$project_root/GLOSSARY.md" "$project_root/ACCEPTANCE.md" \
+  "$project_root" "$project_root/GLOSSARY.md" "$project_root/ACCEPTANCE.md" \
   | sort -u > "$temp_dir/referenced"
 
 comm -23 "$temp_dir/referenced" "$temp_dir/defined" > "$temp_dir/missing-evidence"
