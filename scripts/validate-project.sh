@@ -54,7 +54,7 @@ replication-minimal.md";; esac
 case "$extension" in required) required_files="$required_files
 extension-add-tool.md";; esac
 
-printf '%s\n' "$required_files" | while IFS= read -r relative_path; do
+for relative_path in $required_files; do
   [ -n "$relative_path" ] || continue
   if [ ! -f "$project_root/$relative_path" ]; then
     echo "Missing required file: $relative_path" >&2
