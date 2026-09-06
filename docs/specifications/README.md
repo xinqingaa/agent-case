@@ -4,7 +4,7 @@
 
 | 文档 | 负责的问题 |
 |---|---|
-| [拆解工作流](decomposition-workflow.md) | G0–G6 如何推进 |
+| [拆解工作流](decomposition-workflow.md) | P0–P6 如何推进 |
 | [授权模型](authorization.md) | 哪些操作可以执行 |
 | [证据模型](evidence-model.md) | 结论如何获得和引用支持 |
 | [文档契约](document-contract.md) | 平铺工作区、事实底座和条件式学习交付 |

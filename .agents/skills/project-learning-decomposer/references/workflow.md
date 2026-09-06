@@ -2,7 +2,7 @@
 
 Use this reference when starting or continuing a project decomposition.
 
-## G0: Scope and authorization
+## P0: Scope and authorization
 
 1. Resolve the source path without reading its contents beyond the current authorization.
 2. Record project ID, name, audience, source revision, authorization level, capability matrix, exclusions, and prohibited actions. Translate the user's plain-language permission (read source / run locally / use network) into `project.yaml`; do not ask them to fill stage codes.
@@ -62,7 +62,7 @@ Convert the verified system model into a learning sequence:
 - State exact completion checks for exercises.
 - Build interview material from verified facts, not aspirational claims.
 
-## G6: Acceptance
+## P6: Acceptance
 
 Run every blocking check in `ACCEPTANCE.md`. Cross-check paths, symbols, commands, diagrams, and evidence references. Search for unsupported performance numbers, unmarked assumptions, leaked secrets, stale placeholders, and contradictions across documents.
 
