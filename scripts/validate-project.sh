@@ -39,6 +39,21 @@ source-study-guide.md'
 core_flow_dir="$project_root"
 core_flow_pattern='foundation-core-flow-*.md'
 
+# The learning profile controls optional learning tracks. Excluded tracks are
+# deliberately not required; required tracks must have at least one document.
+profile_values=$(ruby -ryaml -e 'd=YAML.safe_load(File.read(ARGV[0]), permitted_classes: [], aliases: false) || {}; p=d["learning_profile"] || {}; puts [p["source_study"],p["minimal_replication"],p["extension_development"]].join(" ")' "$project_root/project.yaml")
+set -- $profile_values
+source_study=${1:-required}
+replication=${2:-excluded}
+extension=${3:-excluded}
+
+case "$source_study" in required) required_files="$required_files
+source-study-exercises.md";; esac
+case "$replication" in required) required_files="$required_files
+replication-minimal.md";; esac
+case "$extension" in required) required_files="$required_files
+extension-add-tool.md";; esac
+
 printf '%s\n' "$required_files" | while IFS= read -r relative_path; do
   [ -n "$relative_path" ] || continue
   if [ ! -f "$project_root/$relative_path" ]; then
