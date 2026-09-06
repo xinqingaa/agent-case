@@ -1,9 +1,15 @@
-# 详细版文档契约
+# 项目学习文档契约
 
-版本：0.2.0
-状态：0.2 已冻结
+版本：0.3.0
+状态：0.3 设计中
 
-详细版不是一组独立文章，而是一条从产品到协作、从业务思路到验证、从学习到表达的证据链。Agent 可以读源码来核实，学习文档不以函数精读为主线。
+项目交付不是固定篇数的文章集合，而是由事实底座派生出的学习系统。所有项目都经过同一套证据工作流，但学习内容按项目目标选择。项目工作区必须完全平铺，不使用二级目录；文件名前缀表达内容类型。
+
+```text
+事实底座 → 源码学习路线 → 最小复刻路线 → 扩展与二次开发 → 跨项目比较
+```
+
+事实底座是唯一事实源，后续路线只能引用它，不能新增未经核实的项目行为。
 
 ```mermaid
 flowchart LR
@@ -42,27 +48,19 @@ flowchart LR
 
 学习文档的表格不要为了引用去堆 `[V][E-ARCH-001]`。需要定位时写路径、符号或命令。证据台账仍由 Agent 同步维护。
 
-## 文档集合
+## 平铺交付集合
 
 | 文件 | 核心问题 | 要求 |
 |---|---|---|
-| `00-learning-guide.md` | 应按什么顺序看，如何判断看懂？ | 最后编写，必需 |
-| `01-project-and-product.md` | 谁使用、解决什么问题、边界是什么？ | 必需 |
-| `02-product-journeys.md` | 用户如何获得可见结果？ | 必需 |
-| `03-environment-and-runbook.md` | 如何准备、运行和判断成功？ | 必需，可保持未验证 |
-| `04-stack-and-dependencies.md` | 哪些技术真正影响架构和运行？ | 必需 |
-| `05-architecture.md` | 系统边界、模块和运行时如何协作？ | 必需 |
-| `06-codebase-map.md` | 入口和模块在哪？ | 必需，是地图不是精读 |
-| `07-domain-and-data.md` | 核心概念、数据和状态如何变化？ | 适用时必需 |
-| `08-core-flow-<name>.md` | 一条价值链路如何端到端执行？ | 至少一篇 |
-| `09-capabilities-and-thinking.md` | 能做什么、关键怎么判断、用什么思路理解？ | 必需 |
-| `10-interfaces-and-integrations.md` | 系统如何跨边界协作？ | 适用时必需 |
-| `11-testing-and-debugging.md` | 如何验证、定位问题和做 AI-native 调试？ | 必需 |
-| `12-quality-risks-and-tradeoffs.md` | 风险、代价和改进依据是什么？ | 必需 |
-| `13-learning-exercises.md` | 如何用可判定任务检验理解？ | 必需；偏定位与协作，不偏改代码 |
-| `14-interview-guide.md` | 如何准确表达事实和限制？ | 必需 |
+| `foundation-*.md` | 产品、链路、架构、数据、接口、测试和风险 | 所有项目按适用性完成 |
+| `source-study-*.md` | 按概念理解源码、Agent loop、工具、状态和取舍 | `source_study` 为 required 时完成 |
+| `replication-*.md` | 从零实现核心价值的最小闭环 | `minimal_replication` 为 required 时完成 |
+| `extension-*.md` | 工具、路由、模型、记忆、协议和工作流扩展 | `extension_development` 为 required 时完成 |
+| `comparison-*.md` | 与其他项目比较并提炼通用模式 | 有两个以上项目和明确需求后生成 |
 
-项目根还必须包含 `project.yaml`、`EVIDENCE.md`、`GLOSSARY.md`、`ACCEPTANCE.md` 和非事实源的 `working/`。
+项目根还必须包含 `project.yaml`、`EVIDENCE.md`、`GLOSSARY.md`、`ACCEPTANCE.md`。临时记录使用 `working-*.md`，不得作为事实源。
+
+每个项目在 `project.yaml` 中声明学习目标。排除的路线不生成、不验收；所有项目仍必须完成最小事实底座。
 
 ## 单篇共同要求
 

@@ -22,7 +22,7 @@ Ask the user only whether source may be read, whether the project may be run loc
 ## Choose the current phase
 
 - For framework or template work at L0, do not inspect source. Work only on `docs/`, `.agents/`, `.cursor/`, `.claude/`, `templates/`, `schemas/`, `scripts/`, `tests/`, and empty `workspaces/` drills.
-- For a new project, read [references/workflow.md](references/workflow.md) and begin at G0.
+- For a new project, read [references/workflow.md](references/workflow.md) and begin at P1 after the upstream P0 contract is frozen.
 - For evidence capture or claim review, read [references/evidence-and-quality.md](references/evidence-and-quality.md).
 - For an existing partial document set, inventory it first, map it to the required contract, and retain valid material. Do not rewrite merely for stylistic uniformity.
 
@@ -35,7 +35,7 @@ At the start of each phase, state in plain language what the authorization permi
 - Read source as verification material. Do not turn learning docs into function deep-dives or caller/callee tours.
 - Read selectively. Use manifests, entry points, symbol search, call sites, tests, and runtime observations to narrow the investigation.
 - Record evidence in `EVIDENCE.md` while investigating instead of reconstructing citations after drafting.
-- Mark claims in the evidence ledger as runtime-verified, statically verified, user-confirmed, inferred, or unknown. In `detailed/`, write the same facts in plain language and locate them with paths, modules, or commands.
+- Mark claims in the evidence ledger as runtime-verified, statically verified, user-confirmed, inferred, or unknown. In the applicable flat `foundation-*` and learning-track files, write the same facts in plain language and locate them with paths, modules, or commands.
 - Verify setup commands only when the exact execution capabilities are true. A command copied from documentation is not runtime evidence.
 - Trace representative flows end to end, including validation, data changes, external calls, output, failures, and tests.
 - Keep interview claims within verified project facts and user-confirmed personal contributions.
@@ -43,15 +43,17 @@ At the start of each phase, state in plain language what the authorization permi
 
 ## Outputs
 
-Use `docs/specifications/document-contract.md` and `templates/project-decomposition/`. Create one workspace under `workspaces/<project-id>/` containing:
+Use `docs/specifications/document-contract.md` and `templates/project-decomposition/`. Create one completely flat workspace under `workspaces/<project-id>/` containing:
 
 - `project.yaml`, `EVIDENCE.md`, `GLOSSARY.md`, and `ACCEPTANCE.md`.
-- The required detailed documents under `detailed/`.
-- Temporary notes under `working/`; do not cite working notes as final evidence.
+- The applicable `foundation-*`, `source-study-*`, `replication-*`, and `extension-*` documents at the workspace root.
+- Temporary notes as `working-*.md`; do not cite working notes as final evidence.
+
+Read `learning_profile` before drafting. It determines which learning tracks are required, optional, or excluded. Do not generate or validate excluded tracks.
 
 Initialize a workspace with `scripts/init-project.sh <project-id> <project-name> <source-path>`. The script must not inspect the source path.
 
-After initialization, run `scripts/validate-project.sh <project-workspace> --structure-only`. Before G6, run the same script without `--structure-only`; treat it as a mechanical precheck, not a substitute for evidence review.
+After initialization, run `scripts/validate-project.sh <project-workspace> --structure-only`. Before P6, run the same script without `--structure-only`; treat it as a mechanical precheck, not a substitute for evidence review.
 
 ## Completion
 

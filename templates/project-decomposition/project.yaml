@@ -8,8 +8,15 @@ project:
   status: "draft"
 
 contract:
-  spec_version: "0.2.0"
-  template_version: "0.2.0"
+  spec_version: "0.3.0"
+  template_version: "0.3.0"
+
+learning_profile:
+  source_study: "required"
+  runtime_onboarding: "optional"
+  minimal_replication: "excluded"
+  extension_development: "excluded"
+  cross_project_comparison: "deferred"
 
 authorization:
   level: "L0"

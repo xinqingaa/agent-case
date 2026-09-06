@@ -69,6 +69,17 @@
         "known_constraints": {"type": "array", "items": {"type": "string"}}
       }
     },
+    "learning_profile": {
+      "type": "object",
+      "required": ["source_study", "runtime_onboarding", "minimal_replication", "extension_development", "cross_project_comparison"],
+      "properties": {
+        "source_study": {"enum": ["required", "optional", "excluded"]},
+        "runtime_onboarding": {"enum": ["required", "optional", "excluded"]},
+        "minimal_replication": {"enum": ["required", "optional", "excluded"]},
+        "extension_development": {"enum": ["required", "optional", "excluded"]},
+        "cross_project_comparison": {"enum": ["planned", "deferred", "excluded"]}
+      }
+    },
     "output": {
       "type": "object",
       "required": ["delivery_target", "detailed_is_source_of_truth", "quick_version_enabled", "language"],

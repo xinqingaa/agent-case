@@ -33,7 +33,7 @@ flowchart LR
 
 - 拆解方法：`docs/specifications/`
 - 项目范围和权限：`workspaces/<project-id>/project.yaml`
-- 项目学习事实：`workspaces/<project-id>/detailed/`（读者主面）
+- 项目学习事实：`workspaces/<project-id>/foundation-*`、`source-study-*`、`replication-*`、`extension-*`（读者主面，完全平铺）
 - 项目证据：`workspaces/<project-id>/EVIDENCE.md`（Agent 后台）
 - 阶段和阻断项：`workspaces/<project-id>/ACCEPTANCE.md`（Agent 后台）
 
