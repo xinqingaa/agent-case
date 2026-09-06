@@ -25,6 +25,11 @@ schema_path="$repo_root/schemas/project.schema.json"
   exit 1
 }
 
+if find "$project_root" -mindepth 1 -type d -print -quit | grep -q .; then
+  echo "Nested directories are not allowed in a project workspace" >&2
+  exit 1
+fi
+
 missing=0
 
 required_files='project.yaml
